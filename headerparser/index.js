@@ -1,12 +1,9 @@
 var express = require("express");
 var app = express();
 
-app.get("/api/timestamp/:date_string?", function(req, res) {
-  let date = new Date(req.params.date_string);
+app.get("/api/whoami", function(req, res) {
 
-  if (date.toString() === "Invalid Date") return res.json({ error: date.toString() });
-
-  return res.json({ unix: date.getTime(), utc: date.toUTCString() });
+  return res.json({ ipaddress: req.ip, language: req.get('Accept-Language'), software: req.get('User-Agent')});
 });
 
 app.listen(8000, function() {
